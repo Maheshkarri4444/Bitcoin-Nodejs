@@ -1,6 +1,6 @@
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
-const uuidV1 = require('uuid/v1');
+const {v1:uuidV1} = require('uuid');
 
 class ChainUtil{
     static genKeyPair(){
