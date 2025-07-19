@@ -6,6 +6,7 @@ class Transaction{
         this.id = ChainUtil.uuid();
         this.input = null;
         this.outputs=[];
+        // this.coinbase = false;
     }
 
     update(senderWallet,recipient,amount){
@@ -53,6 +54,16 @@ class Transaction{
             amount:MINING_REWARD,address:minerWallet.publicKey
         }])
     }
+    // static rewardTransaction(minerWallet) {
+    //     const transaction = new this();
+    //     transaction.coinbase = true;
+    //     transaction.outputs.push({
+    //         amount: MINING_REWARD,
+    //         address: minerWallet.publicKey
+    //     });
+    //     transaction.input = null; // No input for coinbase tx
+    //     return transaction;
+    // }
 
     static signTransaction(transaction,senderWallet){
         transaction.input = {
@@ -64,6 +75,14 @@ class Transaction{
     }
 
     static verifyTransaction(transaction){
+        // if (transaction.coinbase) {
+        //     const totalOutput = transaction.outputs.reduce((sum, out) => sum + out.amount, 0);
+        //     if (totalOutput !== MINING_REWARD) {
+        //         console.log("Invalid coinbase amount");
+        //         return false;
+        //     }
+        //     return true;
+        // }
         return ChainUtil.verifySignature(
             transaction.input.address,
             transaction.input.signature,
