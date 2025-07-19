@@ -39,10 +39,16 @@ app.post('/transact',(req,res)=>{
     p2pServer.broadcastTransaction(transaction);
     res.redirect('/transactions');
 })
-
+// for /transact the json body is : {
+//     "recipient":"xx",
+//     "amount":xx
+// }
+app.get('/balance',(req,res)=>{
+    res.json({balance: wallet.calculateBalance(bc)})
+})
 app.get('/mine-transactions',(req,res)=>{
     const block = miner.mine();
-    console.log(`New block added : ${block.toString}`);
+    console.log(`New block added : ${block.toString()}`);
     res.redirect('/blocks')
 })
 

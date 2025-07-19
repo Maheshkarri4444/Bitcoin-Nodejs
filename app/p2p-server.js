@@ -69,6 +69,7 @@ class P2pServer {
     }
 
     sendChain(socket){
+        console.log(`P2Pport${P2P_PORT} chain:`,this.blockchain.chain)
         socket.send(JSON.stringify({
             type: MESSAGE_TYPES.chain,
             chain: this.blockchain.chain}));

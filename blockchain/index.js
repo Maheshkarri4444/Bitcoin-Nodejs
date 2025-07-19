@@ -13,12 +13,16 @@ class Blockchain {
     }
 
     isValidChain(chain){
-        if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
-
+        console.log(`isValidChain:-`,JSON.stringify(chain.chain[0]));
+        console.log('genisis:- ',JSON.stringify(Block.genesis()))
+        if(JSON.stringify(chain.chain[0]) !== JSON.stringify(Block.genesis())) return false;
+        console.log(`genisis passed`);
         for (let i = 1; i<chain.length; i++){
             const block = chain[i];
             const lastBlock = chain[i-1];
+            
             if ( block.lastHash !== lastBlock.hash || block.hash!== Block.blockHash(block)){
+                console.log(`testing failed here`)
                 return false
             }
         }
@@ -26,7 +30,7 @@ class Blockchain {
     }
 
     replaceChain(newChain){
-        if(newChain.length <= this.chain.length){
+        if(newChain.chain.length <= this.chain.length){
             console.log("Received chain is no longer than the current chain");
             return;
         } else if (!this.isValidChain(newChain)){
@@ -35,7 +39,7 @@ class Blockchain {
         }
 
         console.log("replacing blockchain with the new chain ");
-        this.chain = newChain;
+        this.chain = newChain.chain;
     }
 }
 
